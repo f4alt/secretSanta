@@ -9,9 +9,9 @@ def main():
     for participant in createConnections.participants:
         # format email
         body = "SHHHH, you have " + participant.secretSanta + '''!
-        Please remember to keep gifts around $150 max
+        Please remember to keep gifts $150 max
         Looking forward to seeing everyone!'''
-        subject = "Family Secret Santa 2021"
+        subject = "Secret Santa"
 
         msg = MIMEMultipart()
         msg['To'] = participant.email
