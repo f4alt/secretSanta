@@ -7,8 +7,11 @@ from email.mime.multipart import MIMEMultipart
 
 def main():
     for participant in createConnections.participants:
-        body = "SHHHH, you have " + participant.secretSanta + " :)"
-        subject = "Secret Santa"
+        # format email
+        body = "SHHHH, you have " + participant.secretSanta + '''!
+        Please remember to keep gifts around $150 max
+        Looking forward to seeing everyone!'''
+        subject = "Family Secret Santa 2021"
 
         msg = MIMEMultipart()
         msg['To'] = participant.email
@@ -19,17 +22,24 @@ def main():
         message = msg.as_string()
 
         try:
+            # send emails
             server = smtplib.SMTP(config.mailFromServer)
             server.starttls()
             server.login(config.gmail_user, config.gmail_password)
 
-            # sendmail(from, to, message)
             server.sendmail(config.gmail_user, participant.email, message)
             server.quit()
 
+            # write connections to log incase of email error, or people forget
+            f = open('log.txt', 'a')
+            f.write(participant.name + " has " + participant.secretSanta + "\n")
+            f.close()
+
+            # console confirmation
             print("Email Sent!")
         except:
-            print("Email Sending Error")
+            # print sending error to console
+            print("Email Sending Error:", participant.email)
 
 if __name__ == "__main__":
     main()
