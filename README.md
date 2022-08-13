@@ -1,4 +1,4 @@
-# secretSant
+# secretSanta
 Python based secret Santa generator which randomizes players and notifies via an email to remain anonymous.
 
 # Usage
